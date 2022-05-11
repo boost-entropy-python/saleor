@@ -3,7 +3,11 @@
 All notable, unreleased changes to this project will be documented in this file. For the released changes, please visit the [Releases](https://github.com/mirumee/saleor/releases) page.
 
 # Unreleased
+- Migrate order line id from int to UUID - #9637 by @IKarbowiak
+  - Changed the order line `id` from `int` to `UUID`, the old ids still can be used
+  for old order lines.
 - Fix invalid `ADDED_PRODUCTS` event parameter for `OrderLinesCreate` mutation - #9653 by @IKarbowiak
+- Fix sorting by publication date with pagination - #9741 by IKarbowiak
 
 ### Other changes
 - Fix for sending incorrect prices to Avatax - #9633 by @korycins
