@@ -50,7 +50,7 @@ class AppBase(AbstractType):
         return app
 
 
-class AppCreated(ObjectType, AppBase):
+class AppInstalled(ObjectType, AppBase):
     ...
 
 
@@ -649,6 +649,30 @@ class TranslationUpdated(ObjectType, TranslationBase):
     ...
 
 
+class WarehouseBase(AbstractType):
+    warehouse = graphene.Field(
+        "saleor.graphql.warehouse.types.Warehouse",
+        description="Look up a warehouse." + ADDED_IN_34 + PREVIEW_FEATURE,
+    )
+
+    @staticmethod
+    def resolve_warehouse(root, _info):
+        _, warehouse = root
+        return warehouse
+
+
+class WarehouseCreated(ObjectType, WarehouseBase):
+    ...
+
+
+class WarehouseUpdated(ObjectType, WarehouseBase):
+    ...
+
+
+class WarehouseDeleted(ObjectType, WarehouseBase):
+    ...
+
+
 class VoucherBase(AbstractType):
     voucher = graphene.Field(
         "saleor.graphql.discount.types.Voucher",
@@ -679,7 +703,7 @@ class VoucherDeleted(ObjectType, VoucherBase):
 class Event(Union):
     class Meta:
         types = (
-            AppCreated,
+            AppInstalled,
             AppUpdated,
             AppDeleted,
             AppStatusChanged,
@@ -744,6 +768,9 @@ class Event(Union):
             TransactionActionRequest,
             TranslationCreated,
             TranslationUpdated,
+            WarehouseCreated,
+            WarehouseUpdated,
+            WarehouseDeleted,
             VoucherCreated,
             VoucherUpdated,
             VoucherDeleted,
@@ -752,7 +779,7 @@ class Event(Union):
     @classmethod
     def get_type(cls, object_type: str):
         types = {
-            WebhookEventAsyncType.APP_CREATED: AppCreated,
+            WebhookEventAsyncType.APP_INSTALLED: AppInstalled,
             WebhookEventAsyncType.APP_UPDATED: AppUpdated,
             WebhookEventAsyncType.APP_DELETED: AppDeleted,
             WebhookEventAsyncType.APP_STATUS_CHANGED: AppStatusChanged,
@@ -821,6 +848,9 @@ class Event(Union):
             WebhookEventAsyncType.TRANSACTION_ACTION_REQUEST: TransactionActionRequest,
             WebhookEventAsyncType.TRANSLATION_CREATED: TranslationCreated,
             WebhookEventAsyncType.TRANSLATION_UPDATED: TranslationUpdated,
+            WebhookEventAsyncType.WAREHOUSE_CREATED: WarehouseCreated,
+            WebhookEventAsyncType.WAREHOUSE_UPDATED: WarehouseUpdated,
+            WebhookEventAsyncType.WAREHOUSE_DELETED: WarehouseDeleted,
             WebhookEventAsyncType.VOUCHER_CREATED: VoucherCreated,
             WebhookEventAsyncType.VOUCHER_UPDATED: VoucherUpdated,
             WebhookEventAsyncType.VOUCHER_DELETED: VoucherDeleted,
