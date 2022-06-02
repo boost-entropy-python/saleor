@@ -1,3 +1,12 @@
+APP_DETAILS = """
+    fragment AppDetails on App{
+        id
+        isActive
+        name
+        appUrl
+    }
+"""
+
 PRICE = """
     fragment Price on TaxedMoney {
       currency
@@ -289,6 +298,19 @@ fragment PageDetails on Page{
 
 """
 
+
+PAGE_TYPE_DETAILS = """
+fragment PageTypeDetails on PageType{
+  id
+  name
+  slug
+  attributes {
+    slug
+  }
+}
+"""
+
+
 SALE_DETAILS = """
 fragment SaleDetails on Sale {
   id
@@ -325,4 +347,30 @@ fragment VoucherDetails on Voucher{
   code
   usageLimit
 }
+"""
+
+
+MENU_DETAILS = """
+    fragment MenuDetails on Menu{
+        id
+        name
+        slug
+        items {
+            id
+            name
+        }
+    }
+"""
+
+MENU_ITEM_DETAILS = """
+    fragment MenuItemDetails on MenuItem{
+        id
+        name
+        menu {
+            id
+        }
+        page {
+            id
+        }
+    }
 """

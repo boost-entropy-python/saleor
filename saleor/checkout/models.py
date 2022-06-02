@@ -97,7 +97,7 @@ class Checkout(ModelWithMetadata):
     discount_name = models.CharField(max_length=255, blank=True, null=True)
 
     translated_discount_name = models.CharField(max_length=255, blank=True, null=True)
-    voucher_code = models.CharField(max_length=12, blank=True, null=True)
+    voucher_code = models.CharField(max_length=255, blank=True, null=True)
     gift_cards = models.ManyToManyField(GiftCard, blank=True, related_name="checkouts")
 
     redirect_url = models.URLField(blank=True, null=True)
@@ -196,7 +196,7 @@ class CheckoutLine(models.Model):
     )
 
     class Meta:
-        ordering = ("created_at",)
+        ordering = ("created_at", "id")
 
     def __str__(self):
         return smart_str(self.variant)
